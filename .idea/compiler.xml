@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Lambda" />
+        <module name="price-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Lambda" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

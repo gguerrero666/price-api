@@ -5,13 +5,12 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class Main implements RequestHandler<Request, Object> {
 
-    public String handleRequest(String nombre, Context context) {
-        context.getLogger().log("Nombre: " + nombre);
-        return "Hola " + nombre;
-    }
-
     @Override
     public Object handleRequest(Request request, Context context) {
+
+        if (request==null){
+            return "200";
+        }
 
         if (request.getHttpMethod()==null){
             return "200";
@@ -19,13 +18,9 @@ public class Main implements RequestHandler<Request, Object> {
 
         switch (request.getHttpMethod()){
             case "GET":
-                if(!request.getName().isEmpty()){
-                    return "Hola " + request.getName();
+                if(!request.getUrl().isEmpty()) {
+                    return "URL: " + request.getUrl();
                 }
-                else {
-                    return "Hola incognito";
-                }
-            case "POST":
         }
         return null;
     }
