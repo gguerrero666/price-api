@@ -2,7 +2,7 @@ package com.lambda.util;
 
 public class Util {
     public static boolean isFound(String url, String tagId){
-        return url.indexOf(tagId)>0;
+        return url.contains(tagId);
     }
 
     public static String getChar(String tagType) {
