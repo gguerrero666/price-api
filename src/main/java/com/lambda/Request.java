@@ -8,6 +8,8 @@ public class Request {
 
     private String url;
 
-    private String tag;
+    private String tagId;
+
+    private boolean isFound;
 
 }
