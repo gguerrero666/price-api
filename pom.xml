@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lambda</groupId>
-    <artifactId>Lambda</artifactId>
-    <version>0.1.0</version>
+    <artifactId>price-api</artifactId>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <properties>
