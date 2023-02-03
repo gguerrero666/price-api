@@ -1,9 +1,10 @@
 package com.lambda;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Request {
     public Request(String httpMethod, String url, String tagId, String tagType) {
         this.httpMethod = httpMethod;
