@@ -3,10 +3,22 @@ package com.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.lambda.util.Util;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
 public class Main implements RequestHandler<Request, Object> {
+
+    public static void main(String[] args){
+        Main m = new Main();
+        Request request = new Request("GET",
+                "https://www.homedepot.com.mx/organizadores-y-closets/closets/closets-armables/closet-playcon-mod-supremo-5-cajones-242-cm-grafito-texturizado-159373",
+                "productOrg_price_1074152",
+                "id");
+        System.out.println(m.handleRequest(request, null));
+    }
 
     @Override
     public Object handleRequest(Request request, Context context) {
@@ -23,13 +35,25 @@ public class Main implements RequestHandler<Request, Object> {
             if (!request.getUrl().isEmpty()) {
                 if (!request.getTagId().isEmpty()) {
                     try {
-                        request.setFound(Util.isFound(Util.getPageCode(request.getUrl()), request.getTagId()));
-                    } catch (IOException | InterruptedException e) {
+
+                        Document htmlCode = Jsoup.connect(request.getUrl()).get();
+                        boolean found = Util.isFound(htmlCode.toString(), request.getTagId());
+
+                        if(found) {
+                            Elements c = htmlCode.select(Util.getChar(request.getTagType()) + request.getTagId());
+                            request.setPrice(c.eachText().get(0).replace("00", ".00"));
+                        }
+                        request.setFound(found);
+
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     return request;
                 }
             }
+        }
+        if (request.getHttpMethod().equals("POST")) {
+            return "POST";
         }
         return null;
     }

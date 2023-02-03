@@ -6,7 +6,7 @@
 
     <groupId>com.lambda</groupId>
     <artifactId>price-api</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -49,6 +49,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
         </dependency>
     </dependencies>
 </project>
