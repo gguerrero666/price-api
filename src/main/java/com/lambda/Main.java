@@ -11,14 +11,14 @@ public class Main implements RequestHandler<Request, Object> {
 
     public static void main(String[] args) {
         Main m = new Main();
-//        Request request = new Request("GET",
-//                "https://www.homedepot.com.mx/organizadores-y-closets/closets/closets-armables/closet-playcon-mod-supremo-5-cajones-242-cm-grafito-texturizado-159373",
-//                "offerPrice_1074152",
-//                "id");
         Request request = new Request("GET",
-                "https://www.walmart.com.mx/juguetes/carritos-y-radiocontrol/aviones-y-helicopteros-de-control-remoto/smartphone-samsung-m23-128gb-verde-desbloqueado_00880609418881",
-                "product-price",
+                "https://www.homedepot.com.mx/organizadores-y-closets/closets/closets-armables/closet-playcon-mod-supremo-5-cajones-242-cm-grafito-texturizado-159373",
+                "offerPrice_1074152",
                 "id");
+//        Request request = new Request("GET",
+//                "https://www.walmart.com.mx/juguetes/carritos-y-radiocontrol/aviones-y-helicopteros-de-control-remoto/smartphone-samsung-m23-128gb-verde-desbloqueado_00880609418881",
+//                "product-price",
+//                "id");
         System.out.println(m.handleRequest(request, null));
     }
 
