@@ -11,6 +11,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,9 +53,12 @@ public class Main implements RequestHandler<Request, Object> {
                             if (c.eachText().size() > 0) {
                                 request.setPrice(c.eachText().get(0).replace("00", ".00"));
 
+                                request.setDate(getDate());
+
                                 // DynamoDB Code:
                                 this.initDynamoDbClient();
                                 request.setSaved(saveData(request));
+
 
                             }
                         }
@@ -74,9 +79,9 @@ public class Main implements RequestHandler<Request, Object> {
     }
 
 
-    public boolean saveData(Request request) {
+    private boolean saveData(Request request) {
 
-        String DYNAMODB_TABLE_NAME = "price";
+        String DYNAMODB_TABLE_NAME = "log-prices";
 
         Map<String, AttributeValue> attributesMap = new HashMap<>();
 
@@ -85,6 +90,7 @@ public class Main implements RequestHandler<Request, Object> {
         attributesMap.put("tagId", new AttributeValue(request.getTagId()));
         attributesMap.put("tagType", new AttributeValue(String.valueOf(request.getTagType())));
         attributesMap.put("price", new AttributeValue(request.getPrice()));
+        attributesMap.put("date", new AttributeValue(request.getDate()));
 
         amazonDynamoDB.putItem(DYNAMODB_TABLE_NAME, attributesMap);
 
@@ -96,5 +102,11 @@ public class Main implements RequestHandler<Request, Object> {
         this.amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
                 .withRegion(Regions.US_EAST_1)
                 .build();
+    }
+
+    private String getDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return formatter.format(date);
     }
 }

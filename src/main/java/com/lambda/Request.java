@@ -27,4 +27,6 @@ public class Request {
 
     private boolean saved;
 
+    private String date;
+
 }
