@@ -25,4 +25,6 @@ public class Request {
 
     private String price;
 
+    private boolean saved;
+
 }
