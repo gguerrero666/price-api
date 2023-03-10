@@ -80,22 +80,21 @@ public class Main implements RequestHandler<Request, Object> {
 
 
     private boolean saveData(Request request) {
-
         String DYNAMODB_TABLE_NAME = "log-prices";
-
         Map<String, AttributeValue> attributesMap = new HashMap<>();
-
         attributesMap.put("httpMethod", new AttributeValue(String.valueOf(request.getHttpMethod())));
         attributesMap.put("url", new AttributeValue(request.getUrl()));
         attributesMap.put("tagId", new AttributeValue(request.getTagId()));
         attributesMap.put("tagType", new AttributeValue(String.valueOf(request.getTagType())));
         attributesMap.put("price", new AttributeValue(request.getPrice()));
         attributesMap.put("date", new AttributeValue(request.getDate()));
-
-        amazonDynamoDB.putItem(DYNAMODB_TABLE_NAME, attributesMap);
+        try {
+            amazonDynamoDB.putItem(DYNAMODB_TABLE_NAME, attributesMap);
+        } catch (Exception ex) {
+            return false;
+        }
 
         return true;
-
     }
 
     private void initDynamoDbClient() {
